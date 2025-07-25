@@ -2,56 +2,63 @@ const container = document.querySelector('.container');
 
 const button = document.querySelector('button');
 
-let value =  10;
+//random color generator
+function generateColor(){
+    const hexArray = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 'A', 'B', 'C', 'D', 'E', 'F'];
+    let code = "";
+    for(let i=0; i<6; i++){
+     code += hexArray[Math.floor(Math.random()*16)];
+    }
+    return `#${code}`
+   }
 
-function eAS(value){
+//grid generation   
+function hAS(value){
 
-
+ //defaults value or if prompt is invalid   
+if (value === undefined) {
+    value = 16;
+}
 
 for (let n = 0; n < value; n++){
 
-    const columns = document.createElement('div');
+    let columns = document.createElement('div');
     columns.classList.add('column');
     container.appendChild(columns);
  
 
-
+    //nested rows
     for (let n = 0; n < value; n++) {
-        const rows = document.createElement('div');
+        let rows = document.createElement('div');
         rows.classList.add('row');
         columns.appendChild(rows);
+
+        //mouse colour 
         rows.addEventListener('mouseenter', () =>{
-            rows.style.backgroundColor = 'yellow'
+
+            rows.style.backgroundColor =generateColor();
+            
         })
 
+    }}
+}   
+hAS();
 
-            button.addEventListener('click', () => {
+//reset button logic
+button.addEventListener("click", () => {
+    
+    let value = prompt('Lines per side?');
 
-            rows.style.backgroundColor = 'white';
+    if (value > 0 && value < 100) {
+    container.innerHTML = '';//resets the entire container
+    hAS(value);
 
-            
-    })
-        }}
-}     
-       
-eAS(value);
-
-
-
-        // button.addEventListener('click', () => {
-// reset
-// let newValue = prompt ('New Grid?', 16);
-// if (newValue >0 && newValue <100){
-//     value = 0;
-//     eAS(newValue);
-// } else {
-//     prompt ('too much, not enough');
-// }
-
-// })
-
-
-
+    } else  {
+    alert('Choose between 1 and 100 only.');
+    container.innerHTML = '';
+    hAS();
+}
+})
 
 
 
