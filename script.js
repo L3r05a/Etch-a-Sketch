@@ -10,12 +10,25 @@ function generateColor(){
      code += hexArray[Math.floor(Math.random()*16)];
     }
     return `#${code}`
+
    }
+
+ 
+//opacity increment function and colour call
+function darken (element) {
+    let opacity = parseFloat(element.style.opacity) || 0;
+    opacity = Math.min(opacity +0.1, 1);
+    element.style.opacity = opacity;
+    element.style.backgroundColor = generateColor();
+    
+}
+  
+
 
 //grid generation   
 function hAS(value){
 
- //defaults value or if prompt is invalid   
+ //default value or if prompt is invalid   
 if (value === undefined) {
     value = 16;
 }
@@ -32,11 +45,13 @@ for (let n = 0; n < value; n++){
         let rows = document.createElement('div');
         rows.classList.add('row');
         columns.appendChild(rows);
+        rows.style.opacity = '0.1';
 
-        //mouse colour 
-        rows.addEventListener('mouseenter', () =>{
+        //mouse listener and opacity call
+        rows.addEventListener('mouseenter', (event) =>{
 
-            rows.style.backgroundColor =generateColor();
+          
+            rows.style.opacity = darken (event.target);
             
         })
 
